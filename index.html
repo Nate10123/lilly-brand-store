@@ -7,8 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to La Lilly Store</h1>
-    <div id="product-list"></div>
+    <header>
+        <h1>Welcome to La Lilly Store</h1>
+    </header>
+
+    <main>
+        <div class="product">
+            <h2>Lilly Shirt</h2>
+            <p>$25.00</p>
+            <button onclick="buyProduct('price_1PXaXFBbpC4dD3dT12345')">Buy Lilly Shirt</button>
+        </div>
+        <div class="product">
+            <h2>Lilly Flag</h2>
+            <p>$15.00</p>
+            <button onclick="buyProduct('price_1PXbYFBbpC4dD3dT67890')">Buy Lilly Flag</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 La Lilly</p>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="app.js"></script>
 </body>
 </html>
