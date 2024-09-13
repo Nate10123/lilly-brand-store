@@ -1,11 +1,7 @@
-// Initialize Stripe with your publishable key
-var stripe = Stripe('pk_test_51PXaWjBbpC4dD3dTRcSrwqAWdgHHtAV8RO1v8W7fpbfY91FaqOKqbpdlwjJQAWtUSZu3hkczabVoksBOsBi0Xjur00ju2anpdH');
-
-// Function to initiate the checkout process
-function buyProduct(productId) {
+function buyProduct() {
     stripe.redirectToCheckout({
         lineItems: [{
-            price: productId, // Use your Stripe product price ID here
+            price: 'price_1PyTax8bpC4D3fT9y760oX', // Use your actual Price ID here
             quantity: 1,
         }],
         mode: 'payment',
