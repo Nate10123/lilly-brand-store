@@ -8,15 +8,28 @@ async function fetchProducts() {
                 'Authorization': 'Bearer 7vRguL8KhUFeRLRWMEdBx4uTOsYremkEkGBHLeCB'
             }
         });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+
         const data = await response.json();
+        console.log("Fetched products: ", data); // Log the response
+
         displayProducts(data.result);
     } catch (error) {
         console.error('Error fetching products:', error);
+        productList.innerHTML = '<p>Unable to load products. Please try again later.</p>';
     }
 }
 
 // Display products on the page
 function displayProducts(products) {
+    if (!products || products.length === 0) {
+        productList.innerHTML = '<p>No products available.</p>';
+        return;
+    }
+
     products.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
