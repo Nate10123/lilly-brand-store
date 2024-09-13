@@ -5,7 +5,7 @@ async function fetchProducts() {
     try {
         const response = await fetch('https://api.printful.com/store/products', {
             headers: {
-                'Authorization': 'Bearer YOUR_PRINTFUL_API_KEY'
+                'Authorization': 'Bearer 7vRguL8KhUFeRLRWMEdBx4uTOsYremkEkGBHLeCB'
             }
         });
         const data = await response.json();
@@ -35,7 +35,7 @@ var stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
 function buyProduct(productId) {
     stripe.redirectToCheckout({
         lineItems: [{
-            price: productId, // This would be your Stripe price ID
+            price: productId, // Use Stripe price ID
             quantity: 1,
         }],
         mode: 'payment',
