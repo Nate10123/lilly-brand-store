@@ -1,54 +1,11 @@
-const productList = document.getElementById('product-list');
+// Initialize Stripe with your publishable key
+var stripe = Stripe('pk_test_51PXaWjBbpC4dD3dTRcSrwqAWdgHHtAV8RO1v8W7fpbfY91FaqOKqbpdlwjJQAWtUSZu3hkczabVoksBOsBi0Xjur00ju2anpdH');
 
-// Fetch products from Printful
-async function fetchProducts() {
-    try {
-        const response = await fetch('https://api.printful.com/store/products', {
-            headers: {
-                'Authorization': 'Bearer 7vRguL8KhUFeRLRWMEdBx4uTOsYremkEkGBHLeCB'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-
-        const data = await response.json();
-        console.log("Fetched products: ", data); // Log the response
-
-        displayProducts(data.result);
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        productList.innerHTML = '<p>Unable to load products. Please try again later.</p>';
-    }
-}
-
-// Display products on the page
-function displayProducts(products) {
-    if (!products || products.length === 0) {
-        productList.innerHTML = '<p>No products available.</p>';
-        return;
-    }
-
-    products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
-        productDiv.innerHTML = `
-            <img src="${product.thumbnail_url}" alt="${product.name}">
-            <h2>${product.name}</h2>
-            <button onclick="buyProduct('${product.id}')">Buy Now</button>
-        `;
-        productList.appendChild(productDiv);
-    });
-}
-
-// Stripe setup
-var stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
-
+// Function to initiate the checkout process
 function buyProduct(productId) {
     stripe.redirectToCheckout({
         lineItems: [{
-            price: productId, // Use Stripe price ID
+            price: productId, // Use your Stripe product price ID here
             quantity: 1,
         }],
         mode: 'payment',
@@ -60,6 +17,3 @@ function buyProduct(productId) {
         }
     });
 }
-
-// Fetch products on page load
-fetchProducts();
