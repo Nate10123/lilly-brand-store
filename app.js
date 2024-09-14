@@ -1,12 +1,13 @@
-import { fetchPrintfulProducts } from './lib/printful';
-import { createPaymentIntent } from './lib/Stripe';
-
-// Display Printful products on the page
 document.addEventListener('DOMContentLoaded', async () => {
   const productList = document.getElementById('product-list');
 
   try {
     const products = await fetchPrintfulProducts();
+
+    if (products.length === 0) {
+      productList.innerHTML = '<p>No products available at the moment.</p>';
+      return;
+    }
 
     products.forEach(product => {
       const item = document.createElement('div');
@@ -21,28 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   } catch (error) {
     console.error('Error loading products:', error);
+    productList.innerHTML = '<p>Error loading products. Please try again later.</p>';
   }
 });
-
-// Handle Stripe payment
-async function startPayment(price) {
-  const response = await fetch('/create-payment-intent', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ amount: price * 100 }), // Convert to cents
-  });
-
-  const { clientSecret } = await response.json();
-
-  const stripe = Stripe('your-publishable-key-here'); // Replace with your publishable key
-
-  const result = await stripe.confirmCardPayment(clientSecret);
-
-  if (result.error) {
-    console.error('Payment failed:', result.error.message);
-  } else {
-    console.log('Payment successful!');
-  }
-}
