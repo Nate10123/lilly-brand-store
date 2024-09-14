@@ -1,34 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Lilly Store</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Welcome to La Lilly Store</h1>
-    </header>
+// pages/index.js
+import { useEffect, useState } from 'react';
+import { getProducts } from '../lib/printful';
 
-    <main>
-        <div class="product">
-            <h2>Lilly Shirt</h2>
-            <p>$25.00</p>
-            <button onclick="buyProduct('price_1PXaXFBbpC4dD3dT12345')">Buy Lilly Shirt</button>
-        </div>
-        <div class="product">
-            <h2>Lilly Flag</h2>
-            <p>$15.00</p>
-            <button onclick="buyProduct('price_1PXbYFBbpC4dD3dT67890')">Buy Lilly Flag</button>
-        </div>
-    </main>
+export default function Home() {
+  const [products, setProducts] = useState([]);
 
-    <footer>
-        <p>&copy; 2024 La Lilly</p>
-    </footer>
+  useEffect(() => {
+    async function fetchProducts() {
+      const data = await getProducts();
+      setProducts(data);
+    }
+    fetchProducts();
+  }, []);
 
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="app.js"></script>
-</body>
-</html>
+  return (
+    <div>
+      <h1>Welcome to La Lilly Store</h1>
+      <div className="products-grid">
+        {products.map((product) => (
+          <div key={product.id} className="product">
+            <img src={product.thumbnail_url} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p>${product.retail_price}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
