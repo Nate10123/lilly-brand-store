@@ -1,30 +1,24 @@
-// pages/index.js
-import { useEffect, useState } from 'react';
-import { getProducts } from '../lib/printful';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Lilly Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to La Lilly Store</h1>
+    </header>
 
-export default function Home() {
-  const [products, setProducts] = useState([]);
+    <main id="products">
+        <!-- Products will be dynamically inserted here -->
+    </main>
 
-  useEffect(() => {
-    async function fetchProducts() {
-      const data = await getProducts();
-      setProducts(data);
-    }
-    fetchProducts();
-  }, []);
+    <footer>
+        <p>&copy; 2024 La Lilly Store</p>
+    </footer>
 
-  return (
-    <div>
-      <h1>Welcome to La Lilly Store</h1>
-      <div className="products-grid">
-        {products.map((product) => (
-          <div key={product.id} className="product">
-            <img src={product.thumbnail_url} alt={product.name} />
-            <h3>{product.name}</h3>
-            <p>${product.retail_price}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+    <script src="app.js"></script>
+</body>
+</html>
