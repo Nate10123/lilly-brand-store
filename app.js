@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       item.innerHTML = `
         <img src="${product.thumbnail_url}" alt="${product.name}">
         <h3>${product.name}</h3>
-        <p>Price: ${product.retail_price} USD</p>
-        <button onclick="startPayment(${product.retail_price})">Buy Now</button>
+        <p>Price: ${product.price} USD</p>
+        <button onclick="startPayment(${product.price})">Buy Now</button>
       `;
       productList.appendChild(item);
     });
