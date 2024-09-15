@@ -1,10 +1,9 @@
-import { fetchPrintfulProducts } from './lib/printful.js';
-
 document.addEventListener('DOMContentLoaded', async () => {
   const productList = document.getElementById('product-list');
 
   try {
-    const products = await fetchPrintfulProducts();
+    const response = await fetch('/api/products');
+    const products = await response.json();
 
     if (products.length === 0) {
       productList.innerHTML = '<p>No products available at the moment.</p>';
@@ -17,8 +16,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       item.innerHTML = `
         <img src="${product.thumbnail_url}" alt="${product.name}">
         <h3>${product.name}</h3>
-        <p>Price: ${product.price} USD</p>
-        <button onclick="startPayment(${product.price})">Buy Now</button>
+        <p>Price: ${product.variants[0].retail_price} USD</p>
+        <button onclick="startPayment(${product.variants[0].retail_price})">Buy Now</button>
       `;
       productList.appendChild(item);
     });
