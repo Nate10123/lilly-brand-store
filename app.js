@@ -1,5 +1,4 @@
 import { fetchPrintfulProducts } from './lib/printful.js';
-import { startPayment } from './lib/stripe.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const productList = document.getElementById('product-list');
