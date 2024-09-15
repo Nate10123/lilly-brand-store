@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const PRINTFUL_API_KEY = '7vRguL8KhUFeRLRWMEdBx4uTOsYremkEkGBHLeCB';  // Your API key here
+const PRINTFUL_API_KEY = '7vRguL8KhUFeRLRWMEdBx4uTOsYremkEkGBHLeCB';
 
 export default async function handler(req, res) {
   try {
